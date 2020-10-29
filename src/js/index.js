@@ -27,21 +27,34 @@ function render(variables = {}) {
   // here we ask the logical questions to make decisions on how to build the html
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
+  let name = "Name";
+  let lastname = "Lastname";
+  let position = "right";
+  let role = "Role";
+  let city = "City";
+  let country = "Country";
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
-
+  if (variables.name != null) name = variables.name;
+  if (variables.lastname != null) lastname = variables.lastname;
+  if (variables.role != null) role = variables.role;
+  if (variables.socialMediaPosition != null)
+    position = variables.socialMediaPosition;
+  if (variables.city != null) city = variables.city;
+  if (variables.country != null) country = variables.country;
+  console.log(position);
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/alesanchezr"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://github.com/alesanchezr"><i class="fa fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/alesanchezr"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/alesanchezr"><i class="fa fa-instagram"></i></a></li>
-          </ul>
+        <img src="${variables.avatarURL}" class="photo" />
+        <h1>${name} ${lastname}</h1>
+        <h2>${role}</h2>
+        <h3>${city}, ${country}</h3>
+        <ul class="${position}">
+            <li><a href="https://twitter.com/${variables.twitter}"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${variables.github}"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${variables.linkedin}"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${variables.instagram}"><i class="fa fa-instagram"></i></a></li>
+        </ul>
         </div>
     `;
 }
@@ -61,7 +74,7 @@ window.onload = function() {
     socialMediaPosition: "position-left",
     // social media usernames
     twitter: null,
-    github: "alesanchezr",
+    github: null,
     linkedin: null,
     instagram: null,
     name: null,
@@ -85,7 +98,7 @@ window.onload = function() {
           : this.value == "false"
           ? false
           : this.value;
-      render(Object.assign(window.variables, values)); // render again the card with new valus
+      render(Object.assign(window.variables, values)); // render again the card with new values
     });
   });
 };
